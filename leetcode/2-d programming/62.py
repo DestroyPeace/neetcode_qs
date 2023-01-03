@@ -3,10 +3,10 @@ class Solution:
         tempRow = [1] * n
         for row in  range(1, m):
             for col in range(1, n):
-                print(tempRow)
                 # we are using the current col value before reassigning it
                 tempRow[col] = tempRow[col - 1] + tempRow[col]
                 
+            print(tempRow)
         return tempRow[-1]
 
 
@@ -44,4 +44,4 @@ class Solution:
         dfs(0, 0, [])
         return res """
 
-print(Solution().uniquePaths(23, 12))
+print(Solution().uniquePaths(7, 3))
