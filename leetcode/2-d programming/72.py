@@ -1,47 +1,43 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
+        # BASE CASES:
+
         if word1 == word2:
             return 0
         
-        # REMOVAL OF EVERYTHING BASE CASES
         if word1 == "":
             return len(word2)
         
         if word2 == "":
             return len(word1)
         
-        dp =  [[]]
+        # INIT THE INITIAL ARRAY
+        dp = [[[] for col in range(len(word2) + 1)] for row in range(len(word1) + 1)]
 
-        def dfs(i, j, operation = 0):
-            if (i, j) in cache:
-                return cache[(i, j)]
+        # SET THE OUTER BOUNDS TO RESPECTIVE VALUES E.G CHANGING EVERY SINGLE VALUE
+        for i in range(len(word1) - 1, -1, -1):
+            dp[i][-1] = len(word1) - i 
+        
+        for j in range(0, len(word2)):
+            dp[-1][j] = len(word2) - j
 
-            # Base Case - NO OPERATIONS NECESSARY MOVE ON
-            if word1[i] == word2[j]:
-                dfs(i + 1, j + 1)
+        dp[-1][-1] = 0
 
-            if word1[i] != word2[j]:
 
-               """
-               # TRY ALL THREE OPTIONS:
+        for i in range(len(word1) - 1, -1, -1):
+            for j in range(len(word2) - 1, -1, -1):
 
-                # INSERTION - +1 in operations but increments word1 in the presumption that the letter has
-                # been inserted to the left of the current index, in effect - i - 1 + 1 = i.
+                # Take the min of each of the neighbouring operations
+                if word1[i] != word2[j]:
+                    dp[i][j] = min([dp[i + 1][j], dp[i][j + 1], dp[i +1][j + 1]]) + 1
+                
+                else:
+                    dp[i][j] = dp[i + 1][j + 1]
 
-                dfs(i, j + 1, operation + 1)
-            
-                # DELETION - +1 in operations and shift the i to the right without shifting the right in
-                # the presumption that the rest of the words are correct by deleting it.
+        return dp[0][0]
 
-                dfs(i + 1, j, operation + 1)
-
-                # REPLACEMENT - +1 in operations by switching it, therefore you can move both by assuming 
-                # that they're the same. 
-
-                dfs(i + 1, j + 1, operation + 1)
-                """
-
-               cache[(i, j)] = dfs(i + 1, j + 1, operation + 1) + 
+test = Solution()
+print(test.minDistance(word1 = "intention", word2 = "execution"))
         
 
 
