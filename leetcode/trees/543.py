@@ -13,4 +13,12 @@ class Solution:
             if not root:
                 return -1
             
-            left = dfs
+            left = dfs(root.left) # Finding the height of the left sub tree
+            right = dfs(root.right) # Finding the height of the right sub tree
+
+            res[0] = max(res[0], 2 + left + right) # Updating the max diameter
+
+            return 1 + max(left, right) # Returning the height.
+        
+        dfs(root)
+        return res[0]

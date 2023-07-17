@@ -15,6 +15,13 @@ class Solution:
 
             return rob_2 
 
+        if not nums: 
+            return 0
+        
+        if len(nums) == 1:
+            return nums[0]
+
+
         return max(house_rob(nums[:-1]), house_rob(nums[1:]))
 
 

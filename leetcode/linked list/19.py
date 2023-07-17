@@ -19,4 +19,5 @@ class Solution:
 
         l.next = l.next.next
         return dummy.next
-        # NOW I HAVE LOCATED THE NTH TERM - REMOVE IT
+
+        

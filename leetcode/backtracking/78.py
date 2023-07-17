@@ -25,14 +25,17 @@ class Solution:
         sub = []
 
         def dfs(i):
+            # We've reached the end of the list and therefore the possible subsets.
             if i >= len(nums):
                 # Appending onto the result which will be returned.
                 res.append(sub.copy())
                 return 
             
+            # Creating the copy of the values with the first number in nums at the start
             sub.append(nums[i])
             dfs(i + 1)
 
+            # Creating the second branch where the values have been popped. 
             sub.pop()
             dfs(i + 1)
 

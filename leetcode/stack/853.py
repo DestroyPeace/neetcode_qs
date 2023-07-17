@@ -26,6 +26,7 @@ class Solution:
             else:
                 stack.append()"""
         
+
         if len(position) == 1:
             return 1
 
@@ -37,7 +38,6 @@ class Solution:
         
         for pos in sorted(stack, key = lambda x: x[0])[::-1]:
             time = (target - pos[0]) / pos[1]
-            print(pos, time)
 
             if res and res[-1] >= time:
                 slowest_time = max(res[-1], time)
@@ -47,10 +47,5 @@ class Solution:
                 res.append(time)
 
         return len(res)
-
-
-10
-[0,4,2]
-[2,1,3]
 test = Solution()
 print(test.carFleet(target = 10, position = [0,4,2], speed = [2,1,3]))

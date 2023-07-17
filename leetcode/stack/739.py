@@ -5,7 +5,6 @@ class Solution:
 
         for i, t in enumerate(temperatures):
             while len(stack) != 0 and t > stack[-1][0]:
-                print(stack)
                 stack_temp, stack_index = stack.pop() # Getting rid of the lower value
 
                 res[stack_index] = (i - stack_index)

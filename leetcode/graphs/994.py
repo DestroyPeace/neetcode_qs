@@ -1,7 +1,6 @@
 from collections import deque
 
 class Solution:
-    def orangesRotting(self, grid: int) -> int:
         q = deque()
         time, fresh = 0, 0
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -52,3 +51,4 @@ class Solution:
             return time
         else:
             return -1
+    def orangesRotting(self, grid: int) -> int:

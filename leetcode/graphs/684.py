@@ -11,9 +11,8 @@ class Solution:
 
             # Finding the root parent.
             while p != par[p]:
-                print(p, par[p])
-                par[p] = par[par[n]]
-                p = par[n]
+                par[p] = par[par[p]]
+                p = par[p]
 
             return p
 

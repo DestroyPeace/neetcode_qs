@@ -8,23 +8,24 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head):
-
         values = {
-            
+            None: None
         }
-        # 2 PASSES - 1 FOR CLONING, 1 FOR POINTING
-        dummy = Node(head)
+        
+        curr = head
 
-        while head:
-            dummy.val = head.val
-            values[dummy.val] = [[head.next, head.random]]
-            head = head.next
-            dummy = dummy.next
+        while curr:
+            copy = Node(curr.val)
+            values[curr] = copy
+            curr = curr.next
 
-        for value in values:
-            dummy.next = values[value][0]
-            dummy.random = values[value][1]
+        curr = head
 
-            dummy = dummy.next
+        while curr:
+            copy = values[curr]
+            copy.next = values[curr.next]
+            copy.random = values[curr.random]
 
-        return dummy        
+            curr = curr.next
+
+        return values[head]

@@ -12,7 +12,7 @@ class Solution:
             "9": "wxyz"
         }
         
-        """res = []
+        res = []
 
         def backtrack(i, curStr):
             if len(curStr) == len(digits):
@@ -26,15 +26,18 @@ class Solution:
             backtrack(0, "")
         
         return res
-        """
+        
 
+
+        """
+        my variation - didn't work due to lists and
+        their properties - resort to using strings.
 
         res = []
         
         def backtrack(index, string):
             if len(string) == len(digits):
-                res.append(string)
-                string.clear()
+                res.append(string)                          
                 return
             
             print(index)
@@ -49,7 +52,7 @@ class Solution:
         if digits:
             backtrack(0, [])
 
-        return res
+        return res"""
 
 test = Solution()
 print(test.letterCombinations("23"))
