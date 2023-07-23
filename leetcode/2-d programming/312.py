@@ -1,5 +1,5 @@
 class Solution:
-    def maxCoins(self, nums: List[int]) -> int:
+    def maxCoins(self, nums: list[int]) -> int:
         nums = [1] + nums + [1]
 
         cache = {
@@ -23,8 +23,10 @@ class Solution:
                 coins = nums[l-1] * nums[i] * nums[r + 1] 
 
                 coins += dfs(l, i - 1) + dfs(i + 1, r)
+                cache[(l, r)] = max(cache[(l, r)], coins)
                 
 
+            return cache[(l, r)]
 
 
 
