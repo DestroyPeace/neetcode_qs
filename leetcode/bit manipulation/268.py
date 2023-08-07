@@ -1,17 +1,13 @@
 class Solution:
     def missingNumber(self, nums: list[int]) -> int:
 
-        """
-        XOR METHOD
-
-        res = 0
+        res = len(nums)
 
         for i in range(len(nums)):
             res += (i - nums[i])
 
         return res
         
-        """
 
         """
         SUM METHOD        
