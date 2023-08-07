@@ -1,8 +1,14 @@
 class Solution:
     def reverseBits(self, n: int) -> int:
-        # CONVERTING N INTO BINARY
-        reversed_n = "".join(reversed(bin(n)[2:]))
+        res = 0
 
-        return int(reversed_n, base = 2)
+        for i in range(32):
+            
+            # Moving the desired bit to the end to essentially perform an and operation on all of the values?
+            bit = (n >> i) & 1
+
+            res |= (bit << (31 - i))
+
+        return res
     
 print(Solution().reverseBits(0b00000010100101000001111010011100))
