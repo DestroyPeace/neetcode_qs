@@ -24,4 +24,6 @@ class Solution:
 
             # The second condition can be ignored due to both stones being destroyed.
 
-        return abs(stones[0]) if stones else 0
+        stones.append(0)
+
+        return abs(stones[0])
