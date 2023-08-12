@@ -3,18 +3,14 @@ import heapq
 class Solution:
     def findKthLargest(self, nums: list[int], k: int) -> int:
         
-        nums = [num * -1 for num in nums]
-        # Creating a min heap that acts like a max heap (negative min heap)
         heapq.heapify(nums)
-        print(nums)
 
-        # Iterating through the max heap
-
-        # Identify which layer of the heap you will be looking through by knowing that each layer 
-        # increases by a power of 2.
-
-        return nums[k] * -1
-
+        # Removing all the elements until we are at element k
+        while len(nums) > k:
+            heapq.heappop(nums)
+        
+        # Returning the now smallest integer, that will be our kth largest integer.
+        return nums[0]
         
 
         
