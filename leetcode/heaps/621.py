@@ -35,11 +35,14 @@ class Solution:
             if queue and res == queue[0][1]:
                 timer, delay = queue.popleft()
 
-                heapq.heappush(max_heap, [timer, delay])
-
+                if timer != 0:
+                    heapq.heappush(max_heap, [timer, delay])
+                else:
+                    res += 1
+                    continue
             # Now, we check the biggest iterable in the max heap
 
-            elif max_heap:
+            if max_heap:
                 timer, delay = heapq.heappop(max_heap)
 
                 # Letter has been reached.
@@ -56,10 +59,8 @@ class Solution:
             else:
                 res += 1
 
-            print(max_heap, queue, res)
-
         return res 
         
 
 test = Solution()
-print(test.leastInterval(tasks = ["A","A","A","B","B", "C", "C"], n = 1))
+print(test.leastInterval(tasks = ["A","A","A","A","A","A","B","C","D","E","F","G"], n = 2))
