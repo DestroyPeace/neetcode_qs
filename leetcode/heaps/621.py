@@ -32,15 +32,15 @@ class Solution:
         # Running through the algo now. 
         while max_heap or queue:
             
-            print(queue)
 
             # Checking if there are any queues to go through:
-            
             if queue and res == queue[0][1] + 1:
                 timer, delay, letter = queue.popleft()
 
                 if timer != 0:
                     heapq.heappush(max_heap, [timer, delay, letter])
+                
+
 
             # Now, we check the biggest iterable in the max heap
 
@@ -51,13 +51,23 @@ class Solution:
                 if timer == 0:
                     res += 1
                     continue 
+                
+                print(letter)
+
+                # Checking if it even needs to be added.
+                if int(timer) + 1 == 0:
+                    res += 1
+                    continue 
 
                 # Decreasing the counter by 1 because of -(timer - 1) becoming - timer + 1.
                 queue.append([int(timer) + 1, res + n, letter]) 
 
                 res += 1
                 continue
-
+            
+            if not(max_heap or queue):
+                return res 
+            
             # Assuming nothing was done.
             res += 1
 
