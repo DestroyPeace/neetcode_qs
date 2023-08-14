@@ -8,7 +8,7 @@ List = list
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         
-        queue = deque() # [ [time_till_next_available, delay], ...]
+        queue = deque() # [ [count, res_number_when_to_come_back], ...]
         res = 0 
 
         # No delay means any letter can be used in any order.
@@ -25,25 +25,27 @@ class Solution:
             hash_set[task] += 1
         
         # Creating a negative key for which the values are constructed to fit the max heap.
-        max_heap = [[hash_set[k] * -1, 0] for k in hash_set]
+        max_heap = [[hash_set[k] * -1, 0, k] for k in hash_set]
 
         heapq.heapify(max_heap) 
 
         # Running through the algo now. 
         while max_heap or queue:
+            
+            print(queue)
+
             # Checking if there are any queues to go through:
-            if queue and res == queue[0][1]:
-                timer, delay = queue.popleft()
+            
+            if queue and res == queue[0][1] + 1:
+                timer, delay, letter = queue.popleft()
 
                 if timer != 0:
-                    heapq.heappush(max_heap, [timer, delay])
-                else:
-                    res += 1
-                    continue
+                    heapq.heappush(max_heap, [timer, delay, letter])
+
             # Now, we check the biggest iterable in the max heap
 
             if max_heap:
-                timer, delay = heapq.heappop(max_heap)
+                timer, delay, letter = heapq.heappop(max_heap)
 
                 # Letter has been reached.
                 if timer == 0:
@@ -51,13 +53,13 @@ class Solution:
                     continue 
 
                 # Decreasing the counter by 1 because of -(timer - 1) becoming - timer + 1.
-                queue.append([int(timer) + 1, res + n]) 
+                queue.append([int(timer) + 1, res + n, letter]) 
 
                 res += 1
-            
-            # General case: if none of the conditions are actived, then this is considered an IDLE.
-            else:
-                res += 1
+                continue
+
+            # Assuming nothing was done.
+            res += 1
 
         return res 
         
