@@ -1,14 +1,37 @@
 import heapq
 import math 
 
-from collections import deque
+from collections import deque, Counter
 
 List = list
 
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         
-        queue = deque() # [ [count, res_number_when_to_come_back], ...]
+        count = Counter(tasks)
+        maxHeap = [-cnt for cnt in count.values()]
+
+        heapq.heapify(maxHeap)
+
+        time = 0 
+
+        q = deque() # pairs of [-cnt, IdleTime]
+
+        while maxHeap or q:
+            time += 1
+
+            if maxHeap:
+                cnt = 1 + heapq.heappop(maxHeap)
+
+                if cnt:
+                    q.append([cnt, time + n])
+
+            if q and q[0][1] == time:
+                heapq.heappush(maxHeap, q.popleft()[0])
+        
+        return time
+
+        """queue = deque() # [ [count, res_number_when_to_come_back], ...]
         res = 0 
 
         # No delay means any letter can be used in any order.
@@ -71,7 +94,7 @@ class Solution:
             # Assuming nothing was done.
             res += 1
 
-        return res 
+        return res """
         
 
 test = Solution()
