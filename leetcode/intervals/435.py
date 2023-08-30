@@ -10,7 +10,7 @@ class Solution:
         # THEY DON'T OVERLAP: IN WHICH CASE MOVE ON.
         # THEY DO OVERLAP, IN WHICH CASE THERE ARE TH
 
-        intervals = sorted(intervals, key = lambda x: x[0])
+        """intervals = sorted(intervals, key = lambda x: x[0])
 
         temp_res = intervals[0]
         res = 0
@@ -35,7 +35,17 @@ class Solution:
             
             # If no comparison has been made - no overlap detected
             else:
-                temp_res = intervals[i]
+                temp_res = intervals[i]"""
+        
+        intervals.sort()
+        res = 0
+        prevEnd = intervals[0][1]
+        for start, end in intervals[1:]:
+            if start >= prevEnd:
+                prevEnd = end
+            else:
+                res += 1
+                prevEnd = min(end, prevEnd)
 
         return res 
 
