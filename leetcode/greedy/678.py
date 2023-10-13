@@ -1,30 +1,31 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        left, star = 0, 0
+        left, star = [], []
 
-        for char in s:
+        for index, char in enumerate(s):
             if char == "(":
-                left += 1
-            elif char == "*":
-                star += 1
+                left.append(index)
+            
+            elif char == ")":
 
-            # Dealing with ) by first checking a left is able to be used.
-            else:
                 if left:
-                    left -= 1
+                    left.pop()
                 elif star:
-                    star -= 1
+                    star.pop()
+                else:
+                    return False 
         
-        # All of the right has been removed. 
-        while left:
-            print(left, star)
-            if star:
-                left -= 1
-                star -= 1
             else:
-                return False
+                star.append(index)
+            
+        while left and star:
+            if left[-1] > star[-1]:
+                return False 
 
-        return True 
+            left.pop()
+            star.pop()
+            
+        return len(left) == 0
     
         # If there
 
