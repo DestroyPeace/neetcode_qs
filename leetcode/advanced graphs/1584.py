@@ -27,39 +27,41 @@ class Solution:
         # a given node could be connected to every other single node or that it may be the longest path and
         # therefore still has to be included and then you can find the other possible edges by checking the frontier.
     
-        visit = [points[0]]
-        frontier = []
+        N = len(points)
 
-        for point in points:
-                if point not in visit:
-                    frontier.append([abs(visit[0][0] - point[0]) + abs(visit[0][1] - point[1]), point])
+        frontier = {i: [] for i in range(N)}
 
-        # Creating a min_heap
-        heapq.heapify(frontier)
+        for i in range(N):
+            x1, y1 = points[i]
+
+            for j in range(i + 1, N):
+                x2, y2 = points[j]
+
+                distance = abs(x1 - x2) + abs(y1 - y2)
+                frontier[i].append([distance, j])
+                frontier[j].append([distance, i])
+
+        # Prims
 
         res = 0
+        visit = set()
 
+        min_heap = [[0,0]]
 
-        while len(visit) != len(points):
-        # Calculating each of the costs from the current visit list.
-        
-            # From the now fully updated heap, we take the smallest value and add it to our total.
-            
-            print(f"visit: {visit}, frontier: {frontier}")
-            visit.append(frontier[0][1])
-            res += frontier[0][0]
+        while len(visit) < N:
+            cost, i = heapq.heappop(min_heap)
 
-            for point in points:
-                if point not in visit:
-                    # Calculating manhattan distance as [cost, point]
-                    heapq.heappush(frontier, [abs(visit[-1][0] - point[0]) + abs(visit[0][1] - point[1]), point])
-            # Removing the closest next point, and since we don't need to keep track of the distances connected
-            # If distances had to be connected, another array considering the connection could be used e.g:
-            # [cost, starting_point, next_point], but since we are allowed multiple connections from one node,
-            # just such that there is all unique paths, we don't need to keep track of it.
+            if i in visit:
+                continue 
 
-            heapq.heappop(frontier)
-        return res 
+            res += cost
+            visit.add(i)
+
+            for neiCost, nei in frontier[i]:
+                if nei not in visit:
+                    heapq.heappush(min_heap, [neiCost, nei])
+
+        return res
     
 test = Solution()
 print(test.minCostConnectPoints(points = [[0,0],[2,2],[3,10],[5,2],[7,0]]))
