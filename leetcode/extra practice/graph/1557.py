@@ -4,8 +4,16 @@ List = list
 
 class Solution:
     def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        nodes = set(range(0, n))
+
+        for _, dest in edges:
+            if dest in nodes:
+                nodes.remove(dest) 
         
-        # Plan is to simply check for nodes where there are no roots.
+        return nodes
+
+
+        """# Plan is to simply check for nodes where there are no roots.
         incoming = collections.defaultdict(int)
         
         for src, dest in edges: 
@@ -17,7 +25,7 @@ class Solution:
             if incoming[i] == 0:
                 res.append(i)
 
-        return res 
+        return res """
     
 test = Solution()
 print(test.findSmallestSetOfVertices(n = 6, edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]))
