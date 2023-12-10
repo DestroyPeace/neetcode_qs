@@ -20,6 +20,11 @@ List = list
 
 class Solution:
     def bestClosingTime(self, customers: str) -> int:
+        if "Y" not in customers: 
+            return 0
+        elif "N" not in customers:
+            return len(customers)
+
         vals = collections.Counter(customers)
 
         # Base value assuming we close at the 0th hour. 
