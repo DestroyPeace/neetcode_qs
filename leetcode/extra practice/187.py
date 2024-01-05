@@ -15,34 +15,19 @@ List = list
 
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
-        # Identifying all the 10 letter sequences 
-        res = []
+        cnt = collections.defaultdict(int) 
+        ans = set()
 
-        # Base case 
-        if len(s) < 10:
-            return 0 
+        for i in range(len(s) - 9):
+            if cnt[s[i:i+10]] == 1: 
+                ans.add(s[i:i+10])
+            else:
+                cnt[s[i:i+10]] += 1
         
-        # Identifying all of the varying levels - we have to accept that it'll be a list 
-        # due to the fact that certain variations where it's just one letter will have multiple
-        # varying "checks" but each of them are differing in their index.
+        return list(ans)
 
-        check = [
-            s[i: i + 10] for i in range(len(s) - 9)
-        ]
-        
-        for c in check:
-            temp = 0 
-            
-            for i in range(len(s) - 9): 
-                if s[i: i + 10] == c and c not in res:
-                    temp += 1
 
-            # Using the heuristic that splitting it will remove all of the copies therefore
-            # if the length is less than 10 less therefore we know that there must be at least 2.
-            if temp > 1: 
-                res.append(c) 
 
-        return res 
         
 
 
